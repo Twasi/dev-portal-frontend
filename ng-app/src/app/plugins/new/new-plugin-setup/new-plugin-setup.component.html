@@ -1,0 +1,144 @@
+<mat-horizontal-stepper class="col-main-2 rounded" labelPosition="bottom" [linear]='!devmode()' #stepper>
+  <mat-step label="Name" [stepControl]="nameSetup">
+    Set a name for your plugin:
+    <div class="plugin-name">
+      <div id="base-package">{{ basepackage }}</div>
+      <form [formGroup]="nameSetup">
+        <mat-form-field>
+          <input matInput placeholder="name" formControlName="nameSetupControl" required>
+        </mat-form-field>
+      </form>
+    </div>
+    <p>
+      Please set a unique name for your new Twasi-plugin.
+      That name can be changed later!
+    </p>
+    <div class="plugin-name-package-view">
+      <p>
+        Your plugin's package will be: <span>{{basepackage}}{{nameSetup.get("nameSetupControl").value}}</span>
+        <br/>That package can <u>not</u> be changed later!
+      </p>
+    </div>
+    <br/>
+    <button mat-raised-button matStepperNext class="col-main-1">Next step</button>
+  </mat-step>
+  <mat-step label="Description" class="rounded">
+    <p>
+      Set a description for your plugin:
+      <br/>
+      <small>If you want to, you can use markdown in your description (no HTML!).</small>
+    </p>
+    <mat-slide-toggle [(ngModel)]="descriptionMdEnabled" (change)="buildDescriptonPreview()">
+      Enable markdown (<a href="https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet" target="_blank">cheatsheet</a>)
+    </mat-slide-toggle>
+    <form [formGroup]="descriptionSetup">
+      <textarea matInput id="description-input" formControlName="descriptionSetupControl"
+                (input)="buildDescriptonPreview()"></textarea>
+    </form>
+    <p>You can also do this later and skip this step.</p>
+    <button mat-flat-button class="col-main-1 clear-field"
+            *ngIf="descriptionSetup.get('descriptionSetupControl').value"
+            (click)="descriptionSetup.reset('descriptionSetupControl')">Clear description
+    </button>
+    <button mat-raised-button matStepperNext class="col-main-1">
+      <span>
+      <span *ngIf="!descriptionSetup.get('descriptionSetupControl').value;else descriptionSkip">Skip to next</span>
+      <ng-template #descriptionSkip>Next</ng-template>
+      </span>
+      <span> step</span>
+    </button>
+    <div *ngIf="descriptionSetup.get('descriptionSetupControl').value">
+      <h2 class="mat-h2" class="description-preview-heading">Description preview:</h2>
+      <div [class]="'description-preview rounded' + (descriptionMdEnabled ? ' md' : '')">
+        <mat-progress-bar mode="buffer" class="descriptionMdLoader" *ngIf="!!previewDelay"></mat-progress-bar>
+        <div class="content" [innerHTML]="descriptionMd"></div>
+      </div>
+      <p>
+        <small><span *ngIf="descriptionMdEnabled;else descriptionNoMd">Displaying rendered markdown.</span>
+          <ng-template #descriptionNoMd><span>Displaying text only.</span></ng-template>
+        </small>
+      </p>
+    </div>
+  </mat-step>
+  <mat-step label="Dependencies">
+    <p>
+      Add dependencies to your plugin:
+      <br/>
+      <small>Just choose the dependencies you really need! If you select 'Spotify API-Wrapper' f.e. the user must have
+        Spotify connected to use your plugin.
+      </small>
+    </p>
+    <div class="settings-list">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let elem of availableDependencies" class="settings-entity mat-elevation-z0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{elem.name}} <span class="setting-id">#{{elem.id}}</span>
+            </mat-panel-title>
+            <mat-panel-description>
+              <div class="pill selected" *ngIf="depencySelection[elem.id]; else unselected"><span
+                class="text">Selected</span></div>
+              <ng-template #unselected>
+                <div class="pill unselected"><span class="text">Unselected</span></div>
+              </ng-template>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div>
+            <p>
+              {{elem.description}}
+            </p>
+            <mat-slide-toggle [(ngModel)]="depencySelection[elem.id]">
+              Include {{elem.name}}
+            </mat-slide-toggle>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <button mat-raised-button matStepperNext class="col-main-1">Next step</button>
+  </mat-step>
+  <mat-step label="Settings">
+    <p>
+      Change your plugin's settings:
+      <br/>
+      <small>
+        By default you won't need to change anything here.
+        Please read everything carefully before you change anything!
+      </small>
+    </p>
+    <div class="settings-list">
+      <mat-accordion>
+        <mat-expansion-panel *ngFor="let elem of availableSettings" class="settings-entity mat-elevation-z0">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              {{elem.name}} <span class="setting-id">#{{elem.id}}</span>
+            </mat-panel-title>
+            <mat-panel-description>
+              <div class="pill selected" *ngIf="settingSelection[elem.id]; else unselected"><span
+                class="text">Selected</span></div>
+              <ng-template #unselected>
+                <div class="pill unselected"><span class="text">Unselected</span></div>
+              </ng-template>
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <div>
+            <p>
+              {{elem.description}}
+            </p>
+            <mat-slide-toggle [(ngModel)]="settingSelection[elem.id]">
+              {{elem.name}}
+            </mat-slide-toggle>
+          </div>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <button mat-raised-button matStepperNext class="col-main-1">Next step</button>
+  </mat-step>
+  <mat-step label="GitHub-Repository">
+    Content 2
+    <button mat-raised-button matStepperNext class="col-main-1">Next step</button>
+  </mat-step>
+  <mat-step label="Finish">
+    Content 2
+    <button mat-raised-button matStepperNext class="col-main-1">Create plugin</button>
+  </mat-step>
+</mat-horizontal-stepper>

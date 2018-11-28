@@ -1,0 +1,41 @@
+<div *ngIf="loginValid === null">
+  Loading...
+</div>
+
+<div *ngIf="loginValid === false">
+  test
+</div>
+
+<div *ngIf="loginValid === true" #app>
+  <mat-toolbar class="align col-main-2 shadow">
+    <span class="align-left"><button mat-button (click)="sidenav.toggle()"><mat-icon>menu</mat-icon></button></span>
+    <span class="align-center" id="brand" routerLink="/"><span class="twasiFont">Twasi</span>Dev<span
+      class="version-badge">{{ version }}</span></span>
+    <button mat-button [matMenuTriggerFor]="menu" class="align-right">
+      <mat-icon class="menu-icon">extension</mat-icon>
+      Plugins
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="plugins">
+        <mat-icon class="menu-icon">folder</mat-icon>
+        Manage plugins
+      </button>
+      <button mat-menu-item routerLink="plugins/new">
+        <mat-icon class="menu-icon">add</mat-icon>
+        Create new plugin
+      </button>
+    </mat-menu>
+  </mat-toolbar>
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav id="side-menu" [autoFocus]="false">
+      <img width="300px"
+           src="https://static-cdn.jtvnw.net/jtv_user_pictures/diesermerlin-profile_banner-e32eaa641840cd3e-480.png">
+      <p id="version">Using API version {{ apiVersion }}</p>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div id="container">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

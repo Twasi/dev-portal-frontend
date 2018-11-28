@@ -1,0 +1,86 @@
+.plugin-entity {
+  padding: 20px;
+  margin: 15px 0;
+  width: auto;
+  overflow: hidden;
+  img {
+    width: 70px;
+    @media only screen and (max-width: 799px) {
+      width: 50px;
+    }
+    float: left;
+    padding: 0 20px 0 0;
+  }
+  .bpkg {
+    background-color: rgba(0, 0, 0, 0.2);
+    padding: 4px;
+    font-size: 0.8em;
+    margin: 0;
+  }
+  .plugin-name {
+    display: block;
+    margin: 7px 2px 0 0;
+    font-size: 1.7em;
+    @media only screen and (max-width: 799px) {
+      font-size: 1.3em;
+    }
+  }
+  .dev-username {
+    font-size: 0.7em;
+    opacity: 0.7;
+  }
+  .plugin-buttons > button {
+    margin: 3px 4px;
+    background-color: rgba(0,0,0,0.1);
+    width: 100%;
+    display: block;
+  }
+  .plugin-state {
+    display: inline;
+    float: right;
+    margin: 0;
+    padding: 5px 8px;
+    min-width: 180px;
+    color: #FFF !important;
+    &.pending {
+      background-color: #dada80;
+    }
+    &.accepted {
+      background-color: #48e07e;
+    }
+    &.denied {
+      background-color: #de6464;
+    }
+  }
+  .left {
+    ::ng-deep figure {
+      justify-content: flex-start !important;
+    }
+  }
+  .right {
+    ::ng-deep figure {
+      justify-content: flex-end !important;
+    }
+  }
+  .plugin-status-view {
+    text-align: center;
+    > * {
+      padding: 10px;
+      overflow: hidden;
+      background-color: rgba(0,0,0,0.1) !important;
+      > * {
+        text-shadow: 0 0 10px #666;
+        margin: 10px 0 0 0;
+      }
+    }
+    * > svg {
+      text-align: left !important;
+      float: left;
+      position: relative;
+      top: 1px;
+      left: -2px;
+      -webkit-filter: drop-shadow(0 0 7px #888);
+      filter: drop-shadow(0 0 7px #888);
+    }
+  }
+}

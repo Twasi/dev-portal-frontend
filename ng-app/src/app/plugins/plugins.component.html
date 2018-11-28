@@ -1,0 +1,41 @@
+<div *ngFor="let object of plugins" class="plugin-entity col-main-2 shadow rounded">
+  <mat-grid-list cols="4" rowHeight="100px">
+    <mat-grid-tile [colspan]="2" [rowspan]="1" class="left">
+      <img [src]="object.img">
+      <div>
+        <span
+          matTooltip="The developer's basepackage"
+          matTooltipPosition="after"
+          class="bpkg rounded">
+          {{object.dev.package}}.
+        </span>
+        <span class="plugin-name">{{object.name}}<span class="version-badge">{{object.version}}</span></span>
+        <span class="dev-username">by {{object.dev.username}}</span>
+      </div>
+    </mat-grid-tile>
+    <mat-grid-tile [colspan]="2" [rowspan]="1" class="right">
+      <div class="plugin-status-view">
+        <div class="rounded">
+          Status
+          <br/>
+          <div [class]="'pill plugin-state ' + object.status">
+            <i *ngIf="object.status === 'accepted'" class="fas fa-check-circle"></i>
+            <i *ngIf="object.status === 'denied'" class="fas fa-times-circle"></i>
+            <i *ngIf="object.status === 'pending'" class="fas fa-clock"></i>
+            {{object.status}}
+          </div>
+        </div>
+      </div>
+      <div class="plugin-buttons">
+        <button mat-flat-button class="github rounded">
+          <i class="fab fa-github"></i>
+          &nbsp;GitHub Repository
+        </button>
+        <button mat-flat-button class="edit rounded">
+          <i class="fas fa-edit"></i>
+          &nbsp;Edit plugin
+        </button>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

@@ -1,0 +1,48 @@
+<div class="title">
+  <h2>
+    Create a new Twasi-plugin
+  </h2>
+  <p>
+    Only a few things to configure before you can start coding...
+  </p>
+</div>
+<div class="shadow col-main-2 rounded">
+  <mat-tab-group dynamicHeight>
+    <mat-tab label="Information">
+    </mat-tab>
+    <mat-tab label="License">
+      <div class="padding">
+        <h2>
+          Plugin license
+        </h2>
+        <div>
+          <p>
+            You are going to create a plugin that is supposed to run on the official Twasi-Core instance.
+            For that it is necessary to license your plugin with the TOPL (Twasi Official Plugin License) that you can
+            see below.
+          </p>
+          <p>
+            Please read it carefully and then confirm that you want to include it in your plugin.
+          </p>
+          <p>
+            You are not allowed to combine the TOPL with any other license.
+          </p>
+        </div>
+        <app-markdown id="TOPL"
+                      src="https://raw.githubusercontent.com/Twasi/Twasi-Official-Plugin-License/master/README.md"
+                      url="https://github.com/Twasi/Twasi-Official-Plugin-License">
+        </app-markdown>
+        <h5>
+          Please confirm to continue your plugin's setup:
+        </h5>
+        <mat-checkbox>I've read the license and agree to include it into my plugin's repository</mat-checkbox>
+        <br/>
+        <mat-checkbox>I agree not to combine this license with any other license</mat-checkbox>
+
+      </div>
+    </mat-tab>
+    <mat-tab label="Setup">
+      <app-new-plugin-setup></app-new-plugin-setup>
+    </mat-tab>
+  </mat-tab-group>
+</div>

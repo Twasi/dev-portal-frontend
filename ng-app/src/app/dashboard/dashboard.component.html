@@ -1,0 +1,24 @@
+<div class="title">
+  <h2>
+    Dashboard
+  </h2>
+  <p>
+    Welcome to the official Twasi Development Portal!
+  </p>
+</div>
+<div class="shadow col-main-2 rounded">
+  <mat-grid-list [cols]="breakpoint" rowHeight="400px" (window:resize)="onResize($event)">
+    <mat-grid-tile>
+      <app-chart-piechart></app-chart-piechart>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <app-chart-piechart></app-chart-piechart>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <app-chart-piechart></app-chart-piechart>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <app-chart-piechart></app-chart-piechart>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
