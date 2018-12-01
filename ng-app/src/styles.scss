@@ -98,6 +98,7 @@ html, body {
 
 *, * ~ * {
   font-family: Roboto, "Helvetica Neue", sans-serif;
+
   img {
     pointer-events: none;
   }
@@ -154,9 +155,10 @@ html, body {
   vertical-align: middle;
 }
 
-.col-main-1, .mat-tooltip {
+.col-main-1, body, .mat-tooltip {
   background-color: $col-main-1 !important;
   color: $col-font-1 !important;
+
   * :not(.font-ignore), .mat-expansion-indicator::after {
     color: $col-font-1 !important;
   }
@@ -169,6 +171,7 @@ mat-expansion-panel-header > span.mat-expansion-indicator.ng-trigger.ng-trigger-
 .col-main-2 {
   background-color: $col-main-2 !important;
   color: $col-font-2 !important;
+
   * :not(.font-ignore) {
     color: $col-font-2 !important;
   }
@@ -231,4 +234,22 @@ mat-expansion-panel-header > span.mat-expansion-indicator.ng-trigger.ng-trigger-
   a {
     color: $col-font-2 !important;
   }
+}
+
+.flex-align-center {
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.mat-progress-bar-fill::after {
+  background-color: #4173de;
+}
+.mat-progress-bar-buffer {
+  background-color: #555;
 }

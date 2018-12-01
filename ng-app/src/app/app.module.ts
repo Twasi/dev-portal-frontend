@@ -18,7 +18,7 @@ import {NotFoundComponent} from './not-found/not-found.component';
 import {
   MatButtonToggleModule,
   MatCheckboxModule, MatExpansionModule,
-  MatGridListModule, MatProgressBarModule, MatSlideToggleModule,
+  MatGridListModule, MatProgressBarModule, MatProgressSpinnerModule, MatSlideToggleModule,
   MatSnackBarModule,
   MatStepperModule,
   MatTabsModule,
@@ -30,6 +30,10 @@ import {HttpClientModule} from '@angular/common/http';
 import {UserComponent} from './user/user.component';
 import {PiechartComponent} from './charts/piechart/piechart.component';
 import {NewPluginSetupComponent} from './plugins/new/new-plugin-setup/new-plugin-setup.component';
+import { AuthenticationComponent } from './backend/authentication/authentication.component';
+import {ParticlesModule} from 'angular-particle';
+import { DevpParticlesComponent } from './other/particles/devp-particles/devp-particles.component';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -41,7 +45,9 @@ import {NewPluginSetupComponent} from './plugins/new/new-plugin-setup/new-plugin
     MarkdownComponent,
     UserComponent,
     PiechartComponent,
-    NewPluginSetupComponent
+    NewPluginSetupComponent,
+    AuthenticationComponent,
+    DevpParticlesComponent
   ],
   imports: [
     BrowserModule,
@@ -66,9 +72,11 @@ import {NewPluginSetupComponent} from './plugins/new/new-plugin-setup/new-plugin
     MatSlideToggleModule,
     FormsModule,
     MatProgressBarModule,
-    MatExpansionModule
+    MatExpansionModule,
+    MatProgressSpinnerModule,
+    ParticlesModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

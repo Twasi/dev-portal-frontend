@@ -12,7 +12,11 @@ export class ApiService {
   private config;
   private api: ApiRequst;
 
-  constructor(private http: HttpClient, private configService: DevpConfigService, private matSnackBar: MatSnackBar) {
+  constructor(
+    private http: HttpClient,
+    private configService: DevpConfigService,
+    private matSnackBar: MatSnackBar,
+  ) {
     this.config = configService.getConfig();
     this.api = new ApiRequst(this.http, this.config['api-url'], this.matSnackBar);
   }
@@ -21,6 +25,9 @@ export class ApiService {
     return this.api.authenticated;
   }
 
+  authenticate() {
+    this.api.authenticateUser();
+  }
 }
 
 class ApiRequst {
@@ -31,6 +38,7 @@ class ApiRequst {
 
   private setObserver(observer) {
     this.authenticatedObserver = observer;
+    observer.next(AuthState.LOGGED_OUT);
   }
 
   constructor(
@@ -39,11 +47,10 @@ class ApiRequst {
     private snackBar: MatSnackBar
   ) {
     this.authenticated = new Observable(this.setObserver);
-    setTimeout(this.authenticateUser, 5000);
   }
 
   public authenticatedGet(path: string, options: object): Promise<any> {
-    const http = this.http, retryCall = () => this.authenticatedPost(path, options);
+    const http = this.http, retryCall = () => this.authenticatedGet(path, options);
     return new Promise<object>(resolve => {
       http.get(this.baseUrl + '/api/withtoken/' + this.authToken + '/' + path, options).toPromise().then(data => {
         if (data['status'] === 'success') {
@@ -75,11 +82,18 @@ class ApiRequst {
   public authenticateUser(): Promise<boolean> {
     // this.setAuthState(AuthState.LOGGING_IN);
     return new Promise<boolean>(resolve => {
-      const popup = window.open('http://dev.twasi.net/auth', 'TwasiDev-Authentication', 'width=700,height=500,status=yes,scrollbars=yes,resizable=yes');
-      popup.focus();
-      popup.window.setResolver(() => {
-        console.log('Das ist 1 nicer Test looogl');
-      });
+      const popup = window.open(
+        location.origin + '/authenticate',
+        'TwasiDev-Authentication',
+        'width=700,height=500,status=yes,scrollbars=yes,resizable=yes'
+      );
+      popup.onload = () => {
+        setTimeout(() => {
+          popup.window['onAuthenticate'] = () => {
+            console.log('Resolver Test');
+          };
+        });
+      };
     });
   }
 
@@ -90,19 +104,12 @@ class ApiRequst {
   ) {
     if (response['status'] === 'InvalidToken') {
       this.snackBar.open('You were logged out. Trying to authenticate again...');
-      this.authenticateUser().then(success => {
-        if (success === true) {
-          retryCall().then(resolver);
-        } else {
-          this.snackBar.open('Unable to authenticate you again. Your action was canceled.');
-        }
-      });
     }
   }
 
 }
 
-enum AuthState {
+export enum AuthState {
   LOGGED_IN,
   LOGGED_OUT,
   LOGGING_IN

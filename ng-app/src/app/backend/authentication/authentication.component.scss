@@ -1,0 +1,12 @@
+#loader {
+  padding: 30px;
+}
+
+*, * ~ *, ::ng-deep * {
+  overflow: hidden !important;
+}
+
+mat-progress-bar {
+  position: relative;
+  top: -2px;
+}

@@ -15,10 +15,45 @@ mat-sidenav-container {
   height: 100% !important;
   position: fixed !important;
 }
+
 .md-sidenav-right {
   position: fixed;
 }
 
 #version {
   font-size: 0.8em;
+}
+
+#not-logged-in {
+
+  *, * ~ * {
+    text-align: center;
+  }
+
+  .brand {
+    font-size: 3em;
+    margin-bottom: 20px;
+
+    * {
+      color: #FFFFFF !important;
+    }
+
+    .dev {
+      font-size: 0.97em;
+    }
+
+    .version-badge {
+      font-size: 0.25em;
+      position: relative;
+      top: -23px;
+    }
+  }
+
+  & > div {
+    padding: 20px;
+  }
+}
+
+#login-window {
+  z-index: 1;
 }
